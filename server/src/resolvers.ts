@@ -1,5 +1,7 @@
 import queryTwitterResolvers from './resolvers/Query';
-const resolvers = {
+import { Resolvers } from './resolvers-types.generated';
+
+const resolvers: Resolvers = {
   Query: queryTwitterResolvers,
 };
 export default resolvers;
