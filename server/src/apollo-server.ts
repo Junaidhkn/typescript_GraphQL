@@ -8,13 +8,11 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { addResolversToSchema } from '@graphql-tools/schema';
 import { GRAPHQL_SCHEMA_PATH } from './constants';
-import { createResolvers, TwitterResolverContext } from './resolvers';
+import { TwitterResolverContext } from './resolvers';
 
 const SCHEMA = loadSchemaSync(GRAPHQL_SCHEMA_PATH, {
   loaders: [new GraphQLFileLoader()],
 });
-
-const context: () => TwitterResolverContext = () => ({ db });
 
 export async function createApolloServer(
   db: Db,
@@ -26,7 +24,7 @@ export async function createApolloServer(
       schema: SCHEMA,
       resolvers,
     }),
-    context,
+    context: (): TwitterResolverContext => ({ db }),
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();

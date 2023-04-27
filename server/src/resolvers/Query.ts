@@ -13,7 +13,7 @@ const queryTwitterResolvers: QueryResolvers<TwitterResolverContext> = {
       updatedAt: '',
     };
   },
-  suggestions: (_, __, { db }) => {
+  suggestions: (_, __, { db: _id }) => {
     return [
       {
         name: 'TypeScript Project',
